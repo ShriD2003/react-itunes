@@ -1,4 +1,6 @@
-import produce from 'immer';
+/* eslint-disable immutable/no-mutation */
+/* eslint-disable complexity */
+import { produce } from 'immer';
 import { createActions } from 'reduxsauce';
 
 export const initialState = {
@@ -23,11 +25,8 @@ export const { Types: itunesContainerTypes, Creators: itunesContainerCreators } 
   clearTrackDetails: {}
 });
 
-/* eslint-disable default-case, no-param-reassign */
-export const itunesContainerReducer = (state = initialState, action) =>
+const itunesContainerReducer = (state = initialState, action) =>
   produce(state, (draft) => {
-    console.log('Reducer action type:', action.type);
-    console.log('Reducer action payload:', action);
     switch (action.type) {
       case itunesContainerTypes.SEARCH_ITUNES:
         draft.searchTerm = action.searchTerm;
@@ -64,8 +63,6 @@ export const itunesContainerReducer = (state = initialState, action) =>
         draft.trackDetails = {};
         break;
     }
-    
-    console.log('Updated state:', draft);
   });
 
 export default itunesContainerReducer;

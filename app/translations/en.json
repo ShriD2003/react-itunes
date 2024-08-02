@@ -11,9 +11,14 @@
   "repository_full_name": "Repository full name: {fullName}",
   "repository_name": "Repository Name: {name}",
   "repository_stars": "Repository stars: {stars}",
-  "search_query": "Search query: {repoName}",
+  "search_query": "Search query: {searchTerm}",
   "something_went_wrong": "Sorry. Something went wrong! Please try again in sometime.",
   "stories": "Go to Storybook",
   "wednesday_solutions": "Wednesday Solutions",
-  "default_template": "wednesday-solutions/react-template"
+  "default_template": "wednesday-solutions/react-template",
+  "get_music_details": "Get details of Itunes Albums and Music",
+  "music_search": "Music Search",
+  "matching_music": "Total number of matching songs: {totalCount}",
+  "itunes_search_default": "Search for music or an Artist by entering name in the search box",
+  "music_list": "Music List"
 }

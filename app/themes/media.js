@@ -1,8 +1,17 @@
-import { SCREEN_BREAK_POINTS } from '@utils/constants';
-const media = {
-  mobile: `${SCREEN_BREAK_POINTS.mobile / 16}em`,
-  tablet: `${SCREEN_BREAK_POINTS.tablet / 16}em`,
-  desktop: `${SCREEN_BREAK_POINTS.desktop / 16}em`
+import { generateMedia } from 'styled-media-query';
+
+const screenBreakPoints = {
+  MOBILE: 320,
+  MID: 526,
+  TABLET: 768,
+  DESKTOP: 992
 };
+
+const media = generateMedia({
+  mobile: `${screenBreakPoints.MOBILE / 16}em`,
+  mid: `${screenBreakPoints.MID / 16}em`,
+  tablet: `${screenBreakPoints.TABLET / 16}em`,
+  desktop: `${screenBreakPoints.DESKTOP / 16}em`
+});
 
 export default media;

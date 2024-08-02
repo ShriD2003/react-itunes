@@ -1,17 +1,20 @@
-import { call, put, takeLatest, select } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import { itunesContainerTypes, itunesContainerCreators } from './reducer';
-import { getSongs, getTrackDetails } from '@services/itunesApi';
-import { selectSongsCache } from './selectors';
-import { isEmpty } from 'lodash';
+import { getSongs } from '@services/itunesApi';
 import { translate } from '@app/utils/index';
 
-const { SEARCH_ITUNES, SEARCH_TRACK } = itunesContainerTypes;
-const { successSearchItunes, failureSearchItunes, successSearchTrack, failureSearchTrack } = itunesContainerCreators;
+const { SEARCH_ITUNES } = itunesContainerTypes;
+const { successSearchItunes, failureSearchItunes } = itunesContainerCreators;
 
+/**
+ * Request itunesdata from iTunes. This is a request to the api that looks up the search term.
+ *
+ * @param action - the action to take on the search term and
+ */
 export function* requestSearchItunes(action) {
   const res = yield call(getSongs, action.searchTerm);
-  console.log(res, "response action");
   const { data, ok } = res;
+  // if ok, then put success search itunes
   if (ok) {
     yield put(successSearchItunes(data));
   } else {
@@ -20,31 +23,9 @@ export function* requestSearchItunes(action) {
   }
 }
 
-export function* requestTrackDetails(action) {
-  let songsCache;
-  if (!isEmpty(action.testSagaCache)) {
-    songsCache = action.testSagaCache;
-  } else {
-    songsCache = yield select(selectSongsCache());
-  }
-  if (!isEmpty(songsCache) && songsCache[action.trackId]) {
-    const data = songsCache[action.trackId];
-    const response = { data, trackDetails: data.results[0] };
-    yield put(successSearchTrack(response));
-  } else {
-    const res = yield call(getTrackDetails, action.trackId);
-    const { data, ok } = res;
-    if (ok) {
-      const response = { data, trackDetails: data.results[0] };
-      yield put(successSearchTrack(response));
-    } else {
-      const error = data?.originalError?.message ?? translate('something_went_wrong');
-      yield put(failureSearchTrack(error));
-    }
-  }
-}
-
+/**
+ * itunesContainerSaga takes the latest ITUNES data from the api
+ */
 export default function* itunesContainerSaga() {
   yield takeLatest(SEARCH_ITUNES, requestSearchItunes);
-  yield takeLatest(SEARCH_TRACK, requestTrackDetails);
 }
