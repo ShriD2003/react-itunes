@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ItunesCard/> tests should render and match the snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root evxfas43 css-16zkfrb-MuiPaper-root-MuiCard-root"
+      data-testid="song-card"
+    >
+      <div
+        class="css-11en623 evxfas40"
+      >
+        <img
+          class="css-be33o9 evxfas42"
+          src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fdribbble.com%2Fshots%2F14395014-Music-Logo&psig=AOvVaw3I_T0J8_ZRKW_g4VF_KmKz&ust=1630933127025000&source=images&cd=vfe&ved=2ahUKEwiT5uO-8efyAhWVHLcAHVSbCvQQjRx6BAgAEAk"
+        />
+        <a
+          href="/details/1234"
+        >
+          <p
+            class="evxfas41 css-m1p2jz egtqi0h0"
+            data-testid="t"
+          >
+            Track
+          </p>
+        </a>
+        \`\`
+      </div>
+    </div>
+  </div>
+</body>
+`;

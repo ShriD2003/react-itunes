@@ -249,10 +249,9 @@ export function mapDispatchToProps(dispatch) {
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose(
-  // injectIntl,
   withConnect,
   memo,
   injectSaga({ key: 'itunesContainer', saga: itunesContainerSaga })
 )(ItunesContainer);
 
-// export const ItunesContainerTest = compose(injectIntl)(ItunesContainer);
+export const ItunesContainerTest = compose()(ItunesContainer);

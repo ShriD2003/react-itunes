@@ -69,9 +69,8 @@ const HeaderFooter = styled.div`
  */
 function ItunesCard({ song, trackDetails }) {
   const { trackName, artworkUrl100, trackId } = song;
-
   return (
-    <CustomCard data-testid="repo-card">
+    <CustomCard data-testid="song-card">
       <HeaderFooter>
         <StyledImage src={artworkUrl100} />
         <Link to={`/details/${trackId}`}>
