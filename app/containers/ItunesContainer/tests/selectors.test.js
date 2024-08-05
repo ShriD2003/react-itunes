@@ -1,41 +1,41 @@
-import { selectHomeContainerDomain, selectRepoName, selectReposData, selectReposError } from '../selectors';
+import { selectItunesContainerDomain, selectSearchError, selectGridData, selectSearchTerm } from '../selectors';
 import { initialState } from '../reducer';
-describe('HomeContainer selector tests', () => {
+describe('Itunes Container selector tests', () => {
   let mockedState;
-  let repoName;
-  let reposData;
-  let reposError;
+  let searchTerm;
+  let gridData;
+  let searchError;
 
   beforeEach(() => {
-    repoName = 'mac';
-    reposData = { totalCount: 1, items: [{ repoName }] };
-    reposError = 'There was some error while fetching the repository details';
+    searchTerm = 'Jo Tum Mero Ho';
+    gridData = { songName: 'Jo Tum Mere Ho', songArtist: 'Anuv Jain' };
+    searchError = 'There was some error while fetching the song details';
 
     mockedState = {
-      homeContainer: {
-        repoName,
-        reposData,
-        reposError
+      itunesContainer: {
+        searchTerm,
+        gridData,
+        searchError
       }
     };
   });
-  it('should select the repoName', () => {
-    const repoSelector = selectRepoName();
-    expect(repoSelector(mockedState)).toEqual(repoName);
+  it('should select the searchTerm', () => {
+    const searchTermSelector = selectSearchTerm();
+    expect(searchTermSelector(mockedState)).toEqual(searchTerm);
   });
 
-  it('should select reposData', () => {
-    const reposDataSelector = selectReposData();
-    expect(reposDataSelector(mockedState)).toEqual(reposData);
+  it('should select gridData', () => {
+    const gridDataSelector = selectGridData();
+    expect(gridDataSelector(mockedState)).toEqual(gridData);
   });
 
-  it('should select the reposError', () => {
-    const reposErrorSelector = selectReposError();
-    expect(reposErrorSelector(mockedState)).toEqual(reposError);
+  it('should select the searchError', () => {
+    const searchErrorSelector = selectSearchError();
+    expect(searchErrorSelector(mockedState)).toEqual(searchError);
   });
 
   it('should select the global state', () => {
-    const selector = selectHomeContainerDomain(initialState);
+    const selector = selectItunesContainerDomain(initialState);
     expect(selector).toEqual(initialState);
   });
 });
