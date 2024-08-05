@@ -4,46 +4,46 @@
 
 /* eslint-disable redux-saga/yield-effects */
 import { takeLatest, call, put } from 'redux-saga/effects';
-import { getRepos } from '@services/repoApi';
+import { getSongs } from '@app/services/itunesApi';
 import { apiResponseGenerator } from '@utils/testUtils';
-import homeContainerSaga, { getGithubRepos } from '../saga';
-import { homeContainerTypes } from '../reducer';
+import itunesContainerSaga, { requestSearchItunes } from '../saga';
+import { itunesContainerTypes } from '../reducer';
 
-describe('HomeContainer saga tests', () => {
-  const generator = homeContainerSaga();
-  const repoName = 'mac';
-  let getGithubReposGenerator = getGithubRepos({ repoName });
+describe('Itunes saga tests', () => {
+  const generator = itunesContainerSaga();
+  const searchTerm = 'Jo Tum Mere Ho';
+  let requestSongsGenerator = requestSearchItunes({ searchTerm });
 
-  it('should start task to watch for REQUEST_GET_GITHUB_REPOS action', () => {
-    expect(generator.next().value).toEqual(takeLatest(homeContainerTypes.REQUEST_GET_GITHUB_REPOS, getGithubRepos));
+  it('should start task to watch for SEARCH_ITUNES action', () => {
+    expect(generator.next().value).toEqual(takeLatest(itunesContainerTypes.SEARCH_ITUNES, requestSearchItunes));
   });
 
-  it('should ensure that the action FAILURE_GET_GITHUB_REPOS is dispatched when the api call fails', () => {
-    const res = getGithubReposGenerator.next().value;
-    expect(res).toEqual(call(getRepos, repoName));
-    const errorResponse = {
-      errorMessage: 'There was an error while fetching repo informations.'
-    };
-    expect(getGithubReposGenerator.next(apiResponseGenerator(false, errorResponse)).value).toEqual(
+  it('should ensure that the action FAILURE_SEARCH_ITUNES is dispatched when the api call fails', () => {
+    console.log(call(getSongs, searchTerm));
+    const res = requestSongsGenerator.next().value;
+    expect(res).toEqual(call(getSongs, searchTerm));
+    const errorRes = 'something_went_wrong';
+
+    expect(requestSongsGenerator.next(apiResponseGenerator(false, errorRes)).value).toEqual(
       put({
-        type: homeContainerTypes.FAILURE_GET_GITHUB_REPOS,
-        error: errorResponse
+        type: itunesContainerTypes.FAILURE_SEARCH_ITUNES,
+        error: errorRes
       })
     );
   });
 
-  it('should ensure that the action SUCCESS_GET_GITHUB_REPOS is dispatched when the api call succeeds', () => {
-    getGithubReposGenerator = getGithubRepos({ repoName });
-    const res = getGithubReposGenerator.next().value;
-    expect(res).toEqual(call(getRepos, repoName));
-    const reposResponse = {
-      totalCount: 1,
-      items: [{ repositoryName: repoName }]
+  it('should ensure that the action SUCCESS_SEARCH_ITUNES is dispatched when the api call succeeds', () => {
+    requestSongsGenerator = requestSearchItunes({ searchTerm });
+    const res = requestSongsGenerator.next().value;
+    expect(res).toEqual(call(getSongs, searchTerm));
+    const data = {
+      resultCount: 0,
+      results: [{ songName: 'Jo Tum Mero Ho', songArtist: 'Anuv Jain' }]
     };
-    expect(getGithubReposGenerator.next(apiResponseGenerator(true, reposResponse)).value).toEqual(
+    expect(requestSongsGenerator.next(apiResponseGenerator(true, data)).value).toEqual(
       put({
-        type: homeContainerTypes.SUCCESS_GET_GITHUB_REPOS,
-        data: reposResponse
+        type: itunesContainerTypes.SUCCESS_SEARCH_ITUNES,
+        data
       })
     );
   });
