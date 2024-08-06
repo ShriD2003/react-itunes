@@ -20,5 +20,9 @@
   "music_search": "Music Search",
   "matching_music": "Total number of matching songs: {totalCount}",
   "itunes_search_default": "Search for music or an Artist by entering name in the search box",
-  "music_list": "Music List"
+  "music_list": "Music List",
+  "no_description": "No Description available for this song! ",
+  "play-btn": "Play",
+  "stop-btn": "Pause",
+  "default-message": "Your Songs will be shown here"
 }

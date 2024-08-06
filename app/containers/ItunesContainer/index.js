@@ -36,7 +36,6 @@ const Container = styled.div`
     flex-direction: column;
     max-width: ${(props) => props.containerWidth}px;
     padding: ${(props) => props.padding}px;
-    background-color: ${colors.musicGridBg};
   }
 `;
 
@@ -125,6 +124,7 @@ export function ItunesContainer({
   };
 
   const debouncedHandleOnChange = debounce(handleOnChange, 200);
+
   const handleActionClick = (audioRef) => {
     // Set the current track to the current track if the audioRef is not the current track.
     if (currentTrack?.current?.src !== audioRef?.current.src) {
@@ -164,7 +164,7 @@ export function ItunesContainer({
     if (searchError) {
       return searchError;
     } else if (!get(gridData, 'resultsCount', 0)) {
-      return 'songs_will_be_displayed_here';
+      return 'default-message';
     }
     return null;
   };
@@ -184,7 +184,7 @@ export function ItunesContainer({
 
   return (
     <>
-      <Container maxwidth={maxwidth} padding={padding} containerWidth={containerWidth}>
+      <Container maxwidth={100} padding={padding} containerWidth={containerWidth}>
         {/* <CustomCard title={intl.formatMessage({ id: 'songs_search' })} maxwidth={maxwidth}> */}
         <CustomCard maxwidth={maxwidth}>
           <T id="Search your Songs" />

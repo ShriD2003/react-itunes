@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 /**
  * ItunesCard Component
  *
@@ -15,72 +16,174 @@
  * return <ItunesCard song={song} trackDetails={true} />;
  */
 
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { Card } from '@mui/material';
-import T from '@components/T';
-import media from '@app/themes/media';
+
+import { Card, Typography, Button, Progress, Spin } from 'antd';
+
 import { Link } from 'react-router-dom';
+
+import { translate } from '@app/utils';
+import { PlayCircleTwoTone, StopTwoTone } from '@ant-design/icons';
+
+const { Paragraph } = Typography;
 
 const CustomCard = styled(Card)`
   && {
+    width: 300px;
+    height: 450px;
     margin: 1rem 0;
     padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
+`;
+
+const CardContent = styled.div`
+  flex: 1;
 `;
 
 const StyledImage = styled.img`
-  width: 100px;
-  height: ${(props) => (props.trackDetails ? 18 : 14)}em;
-  margin-bottom: 2em;
+  width: 100%;
+  height: auto;
+  max-height: 150px;
+  object-fit: cover;
+  margin-bottom: 1rem;
 `;
 
-const StyledT = styled(T)`
-  && {
-    font-size: ${(props) => (props.trackdetails ? 2 : 1.1)}em;
-    margin: ${(props) => (props.trackdetails ? '20 0' : 0)}px;
-    ${media.lessThan('desktop')`
-      font-size: ${(props) => (props.trackdetails ? 1.5 : 1.1)}em;
-    `}
-    ${media.lessThan('tablet')`
-      font-size: ${(props) => (props.trackdetails ? 1.4 : 1.1)}em;
-    `}
-    ${media.lessThan('mid')`
-      font-size: ${(props) => (props.trackdetails ? 1 : 1.1)}em;
-    `}
-    ${media.lessThan('mobile')`
-      font-size: ${(props) => (props.trackdetails ? 0.9 : 1.1)}em;
-    `}
-  }
+const StyledLink = styled(Link)`
+  display: block;
+  margin-bottom: 1rem;
 `;
 
-const HeaderFooter = styled.div`
+const ButtonContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
+  margin-top: 1rem;
 `;
+
+const SpinnerContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+`;
+
 /**
  * Card for itunes. This card is used to show trackImage and track details.
  *
  *
  * @return { ReactElement } The card thatll be displayed
  */
-function ItunesCard({ song, trackDetails }) {
-  const { trackName, artworkUrl100, trackId } = song;
+function ItunesCard({ song, trackDetails, onActionClick }) {
+  const { trackName, artworkUrl100, trackId, previewUrl, artistName } = song;
+
+  const [play, setPlay] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [duration, setDuration] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+  const songElement = useRef(null);
+
+  useEffect(() => {
+    const audio = songElement.current;
+    if (audio) {
+      const setAudioData = () => {
+        setDuration(audio.duration);
+        setLoading(false);
+      };
+
+      const setAudioTime = () => {
+        setCurrentTime(audio.currentTime);
+      };
+
+      audio.addEventListener('loadedmetadata', setAudioData);
+      audio.addEventListener('timeupdate', setAudioTime);
+      audio.addEventListener('ended', handleEnded);
+
+      return () => {
+        audio.removeEventListener('loadedmetadata', setAudioData);
+        audio.removeEventListener('timeupdate', setAudioTime);
+        audio.removeEventListener('ended', handleEnded);
+      };
+    }
+  }, []);
+
+  const handleMusic = () => {
+    const audio = songElement.current;
+    if (play) {
+      audio.pause();
+    } else {
+      if (audio.readyState >= 3) {
+        audio.play();
+      } else {
+        setLoading(true);
+        audio.load();
+      }
+    }
+    setPlay(!play);
+    onActionClick(songElement);
+  };
+
+  const handleEnded = () => {
+    setPlay(false);
+  };
+
+  const handlePlaybackError = () => {
+    console.error('Playback error');
+    setPlay(false);
+  };
+
   return (
     <CustomCard data-testid="song-card">
-      <HeaderFooter>
-        <StyledImage src={artworkUrl100} />
-        <Link to={`/details/${trackId}`}>
-          <StyledT trackdetails={trackDetails?.toString()} text={trackName} />
-        </Link>
-        ``
-      </HeaderFooter>
+      <CardContent>
+        <StyledImage src={artworkUrl100} alt={trackName} />
+        <StyledLink to={`/details/${trackId}`}>
+          <Typography.Title level={4}>{trackName}</Typography.Title>
+          <Typography.Text>{artistName}</Typography.Text>
+        </StyledLink>
+        <Paragraph>{song.shortDescription || song.longDescription || ''}</Paragraph>
+      </CardContent>
+      <div>
+        <ButtonContainer>
+          <Button
+            data-testid="play-btn"
+            onClick={handleMusic}
+            disabled={loading}
+            type={play ? 'text' : 'ghost'}
+            icon={<PlayCircleTwoTone />}
+          >
+            {translate('play-btn')}
+          </Button>
+          <Button
+            data-testid="stop-btn"
+            onClick={handleMusic}
+            disabled={!play}
+            type={!play ? 'text' : 'ghost'}
+            icon={<StopTwoTone />}
+            size="large"
+          >
+            {translate('stop-btn')}
+          </Button>
+        </ButtonContainer>
+        {loading ? (
+          <SpinnerContainer>
+            <Spin />
+          </SpinnerContainer>
+        ) : (
+          <Progress percent={Math.round((currentTime / duration) * 100)} />
+        )}
+      </div>
+      <audio data-testid="audio-element" src={previewUrl} ref={songElement} onError={handlePlaybackError}></audio>
     </CustomCard>
   );
 }
+
+ItunesCard.defaultProps = {
+  onActionClick: () => {}
+};
 
 ItunesCard.propTypes = {
   /** The song data to display in the card */
@@ -89,7 +192,10 @@ ItunesCard.propTypes = {
     artworkUrl100: PropTypes.string,
     trackPrice: PropTypes.number,
     previewUrl: PropTypes.string,
-    trackName: PropTypes.string
+    trackName: PropTypes.string,
+    shortDescription: PropTypes.string,
+    longDescription: PropTypes.string,
+    artistName: PropTypes.string
   }),
   width: PropTypes.number,
   height: PropTypes.number,

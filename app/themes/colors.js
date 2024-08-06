@@ -11,6 +11,11 @@ const secondary = '#f8c49c';
 const success = '#28a745';
 const error = '#dc3545';
 const gotoStories = '#1890ff';
+const songCardBg = '#434';
+const musicGridBg = '#000000';
+const styledPriceColor = '#fafafa';
+const styledTColor = '#fafafa';
+const styledParaColor = '#D24545';
 
 const colors = {
   transparent: 'rgba(0,0,0,0)',
@@ -21,6 +26,12 @@ const colors = {
   success,
   error,
   gotoStories,
+  songCardBg,
+  musicGridBg,
+  styledPriceColor,
+  styledParaColor,
+  styledTColor,
+
   theme: {
     lightMode: {
       primary,
