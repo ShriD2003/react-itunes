@@ -145,7 +145,6 @@ export function ItunesContainer({
       <If condition={!isEmpty(songs) || !loading}>
         <Skeleton data-testid="skeleton-card" loading={loading} active>
           <If condition={totalCount !== 0}>
-            <StyledT id="search_query" values={{ searchTerm }} />
             <StyledT id="Matching Songs" values={{ totalCount }} />
           </If>
           <For
@@ -188,7 +187,7 @@ export function ItunesContainer({
       <Container maxwidth={100} padding={padding} containerWidth={containerWidth}>
         {/* <CustomCard title={intl.formatMessage({ id: 'songs_search' })} maxwidth={maxwidth}> */}
         <CustomCard maxwidth={maxwidth}>
-          <T id="Search your Songs" />
+          <T id="music_search_default" />
           <Search
             data-testid="search-bar"
             defaultValue={searchTerm}

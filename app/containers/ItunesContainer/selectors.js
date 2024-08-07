@@ -27,6 +27,10 @@ export const selectSearchTerm = () => getState('searchTerm');
 
 export const selectSearchError = () => getState('searchError');
 
+export const selectTrackDetails = () => getState('trackDetails');
+
 export const selectSongsCache = () => getState('songsCache');
+
+export const selectTrackId = () => getState('trackId');
 
 export const selectTrackSearchError = () => getState('trackSearchError');

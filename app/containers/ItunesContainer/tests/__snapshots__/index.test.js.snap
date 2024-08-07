@@ -19,7 +19,7 @@ exports[`ItunesContainer tests should render and match the snapshot 1`] = `
             class="css-lh9t18 egtqi0h0"
             data-testid="t"
           >
-            Search your Songs
+            🎺 Search for a song or an Artist by entering in the search box 🎵
           </p>
           <span
             class="ant-input-group-wrapper ant-input-group-wrapper-outlined css-dev-only-do-not-override-1pg9a38 ant-input-search"
@@ -85,7 +85,7 @@ exports[`ItunesContainer tests should render and match the snapshot 1`] = `
             class="css-lh9t18 egtqi0h0"
             data-testid="default-message"
           >
-            Your Songs will be shown here
+            🎺 Your Songs will be shown here 🎵
           </p>
         </div>
       </div>

@@ -136,12 +136,21 @@ function ItunesCard({ song, trackDetails, onActionClick }) {
     setPlay(false);
   };
 
+  const truncateText = (text, wordLimit) => {
+    const words = text.split('');
+    if (words.length <= wordLimit) {
+      return text;
+    }
+    return `${words.slice(0, wordLimit).join('')}...`;
+  };
+  const truncatedTrackName = truncateText(trackName, 20);
+
   return (
     <CustomCard data-testid="song-card">
       <CardContent>
         <StyledImage src={artworkUrl100} alt={trackName} />
         <StyledLink to={`/details/${trackId}`}>
-          <Typography.Title level={4}>{trackName}</Typography.Title>
+          <Typography.Title level={4}>{truncatedTrackName}</Typography.Title>
           <Typography.Text>{artistName}</Typography.Text>
         </StyledLink>
         <Paragraph data-testid="para-test">{song.shortDescription || song.longDescription || ''}</Paragraph>

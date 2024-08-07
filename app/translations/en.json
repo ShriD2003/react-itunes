@@ -24,5 +24,6 @@
   "no_description": "No Description available for this song! ",
   "play-btn": "Play",
   "stop-btn": "Pause",
-  "default-message": "Your Songs will be shown here"
+  "default-message": "🎺 Your Songs will be shown here 🎵",
+  "music_search_default": "🎺 Search for a song or an Artist by entering in the search box 🎵"
 }
