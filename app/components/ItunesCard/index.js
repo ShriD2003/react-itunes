@@ -25,7 +25,7 @@ import { Card, Typography, Button, Progress, Spin } from 'antd';
 import { Link } from 'react-router-dom';
 
 import { translate } from '@app/utils';
-import { PlayCircleTwoTone, StopTwoTone } from '@ant-design/icons';
+import { PlayCircleTwoTone, PauseCircleTwoTone } from '@ant-design/icons';
 
 const { Paragraph } = Typography;
 
@@ -144,7 +144,7 @@ function ItunesCard({ song, trackDetails, onActionClick }) {
           <Typography.Title level={4}>{trackName}</Typography.Title>
           <Typography.Text>{artistName}</Typography.Text>
         </StyledLink>
-        <Paragraph>{song.shortDescription || song.longDescription || ''}</Paragraph>
+        <Paragraph data-testid="para-test">{song.shortDescription || song.longDescription || ''}</Paragraph>
       </CardContent>
       <div>
         <ButtonContainer>
@@ -162,7 +162,7 @@ function ItunesCard({ song, trackDetails, onActionClick }) {
             onClick={handleMusic}
             disabled={!play}
             type={!play ? 'text' : 'ghost'}
-            icon={<StopTwoTone />}
+            icon={<PauseCircleTwoTone />}
             size="large"
           >
             {translate('stop-btn')}
@@ -170,10 +170,10 @@ function ItunesCard({ song, trackDetails, onActionClick }) {
         </ButtonContainer>
         {loading ? (
           <SpinnerContainer>
-            <Spin />
+            <Spin data-testid="spin" />
           </SpinnerContainer>
         ) : (
-          <Progress percent={Math.round((currentTime / duration) * 100)} />
+          <Progress aria-valuenow="50" role="progressbar" percent={Math.round((currentTime / duration) * 100)} />
         )}
       </div>
       <audio data-testid="audio-element" src={previewUrl} ref={songElement} onError={handlePlaybackError}></audio>

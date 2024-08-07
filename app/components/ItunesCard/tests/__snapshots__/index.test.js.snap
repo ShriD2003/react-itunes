@@ -35,6 +35,7 @@ exports[`<ItunesCard/> tests should render and match the snapshot 1`] = `
           </a>
           <div
             class="ant-typography css-dev-only-do-not-override-1pg9a38"
+            data-testid="para-test"
           >
             Song Description
           </div>
@@ -94,13 +95,13 @@ exports[`<ItunesCard/> tests should render and match the snapshot 1`] = `
                 class="ant-btn-icon"
               >
                 <span
-                  aria-label="stop"
-                  class="anticon anticon-stop"
+                  aria-label="pause-circle"
+                  class="anticon anticon-pause-circle"
                   role="img"
                 >
                   <svg
                     aria-hidden="true"
-                    data-icon="stop"
+                    data-icon="pause-circle"
                     fill="currentColor"
                     focusable="false"
                     height="1em"
@@ -108,12 +109,16 @@ exports[`<ItunesCard/> tests should render and match the snapshot 1`] = `
                     width="1em"
                   >
                     <path
-                      d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm288.5 682.8L277.7 224C258 240 240 258 224 277.7l522.8 522.8C682.8 852.7 601 884 512 884c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372c0 89-31.3 170.8-83.5 234.8z"
+                      d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
                       fill="#1677ff"
                     />
                     <path
-                      d="M512 140c-205.4 0-372 166.6-372 372s166.6 372 372 372c89 0 170.8-31.3 234.8-83.5L224 277.7c16-19.7 34-37.7 53.7-53.7l522.8 522.8C852.7 682.8 884 601 884 512c0-205.4-166.6-372-372-372z"
+                      d="M512 140c-205.4 0-372 166.6-372 372s166.6 372 372 372 372-166.6 372-372-166.6-372-372-372zm-80 524c0 4.4-3.6 8-8 8h-48c-4.4 0-8-3.6-8-8V360c0-4.4 3.6-8 8-8h48c4.4 0 8 3.6 8 8v304zm224 0c0 4.4-3.6 8-8 8h-48c-4.4 0-8-3.6-8-8V360c0-4.4 3.6-8 8-8h48c4.4 0 8 3.6 8 8v304z"
                       fill="#e6f4ff"
+                    />
+                    <path
+                      d="M424 352h-48c-4.4 0-8 3.6-8 8v304c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V360c0-4.4-3.6-8-8-8zm224 0h-48c-4.4 0-8 3.6-8 8v304c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V360c0-4.4-3.6-8-8-8z"
+                      fill="#1677ff"
                     />
                   </svg>
                 </span>
@@ -126,7 +131,7 @@ exports[`<ItunesCard/> tests should render and match the snapshot 1`] = `
           <div
             aria-valuemax="100"
             aria-valuemin="0"
-            aria-valuenow="NaN"
+            aria-valuenow="50"
             class="ant-progress ant-progress-status-normal ant-progress-line ant-progress-line-align-end ant-progress-line-position-outer ant-progress-show-info ant-progress-default css-dev-only-do-not-override-1pg9a38"
             role="progressbar"
           >

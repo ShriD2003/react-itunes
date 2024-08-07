@@ -34,6 +34,7 @@ const Container = styled.div`
     display: flex;
     margin: 0 auto;
     flex-direction: column;
+    background-color: ${colors.musicGridBg};
     max-width: ${(props) => props.containerWidth}px;
     padding: ${(props) => props.padding}px;
   }
