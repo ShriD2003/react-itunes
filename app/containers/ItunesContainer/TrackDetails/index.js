@@ -80,7 +80,7 @@ export function TrackDetails({
   useEffect(() => {
     dispatchClearTrackDetails();
     dispatchTrackSearch(trackId);
-  }, []);
+  }, [trackId]);
 
   return (
     <>
@@ -89,10 +89,13 @@ export function TrackDetails({
           condition={isEmpty(trackSearchError)}
           otherwise={<T data-testid="track-detail-error" id="something_went_wrong" />}
         >
-          <Skeleton data-testid="skeleton-card" loading={isEmpty(trackDetails)} active>
+          <Skeleton data-testid="track-detail-loading" loading={isEmpty(trackDetails)} active>
             <BackLink to="/itunes">
               <LeftCircleTwoTone />
             </BackLink>
+            <button aria-label="Close" onClick={dispatchClearTrackDetails}>
+              Close
+            </button>
             <TrackInfoContainer>
               <TrackDetailsRow gutter={[16, 16]}>
                 <Col span={6}>
@@ -110,11 +113,17 @@ export function TrackDetails({
                   <InfoText strong>{trackDetails.artistName}</InfoText>
                   <Divider />
                   <InfoText>
-                    <CalendarOutlined /> Release Date: {new Date(trackDetails.releaseDate).toLocaleDateString()}
+                    <CalendarOutlined /> Release Date:{' '}
+                    {new Date(trackDetails.releaseDate).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })}
                   </InfoText>
                   <br />
                   <InfoText>
-                    <DollarOutlined /> Price: {trackDetails.collectionPrice} {trackDetails.currency}
+                    <DollarOutlined /> Price: {trackDetails.currency === 'USD' ? '$' : ''}
+                    {trackDetails.collectionPrice}
                   </InfoText>
                   <br />
                   <InfoText>
@@ -124,12 +133,14 @@ export function TrackDetails({
                     </a>
                   </InfoText>
                   <br />
-                  <InfoText>
-                    <PlayCircleOutlined />{' '}
-                    <a href={trackDetails.previewUrl} target="_blank" rel="noopener noreferrer">
-                      Preview Track
-                    </a>
-                  </InfoText>
+                  {trackDetails.previewUrl && (
+                    <InfoText>
+                      <PlayCircleOutlined />{' '}
+                      <a href={trackDetails.previewUrl} target="_blank" rel="noopener noreferrer">
+                        Preview
+                      </a>
+                    </InfoText>
+                  )}
                   <Title level={4}>Collection: {trackDetails.collectionName}</Title>
                   <InfoText>Genre: {trackDetails.primaryGenreName}</InfoText>
                   <br />
@@ -187,4 +198,4 @@ export default compose(
   injectSaga({ key: 'itunesContainer', saga: itunesContainerSaga })
 )(TrackDetails);
 
-export const TrackDetailsTest = compose()(TrackDetails);
+export { TrackDetails as TrackDetailsTest };

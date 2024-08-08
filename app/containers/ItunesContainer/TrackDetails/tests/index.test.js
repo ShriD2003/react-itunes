@@ -50,12 +50,12 @@ describe('TrackDetails SubContainer tests', () => {
       />
     );
 
-  test('should show error message when trackSearchError is present', () => {
+  it('should show error message when trackSearchError is present', () => {
     renderComponent({ trackSearchError: 'Some error occurred' });
     expect(screen.getByTestId('track-detail-error')).toBeInTheDocument();
   });
 
-  test('should display track details when trackDetails is provided', () => {
+  it('should display track details when trackDetails is provided', () => {
     const trackDetails = {
       trackName: 'Test Track',
       artistName: 'Test Artist',
@@ -73,5 +73,28 @@ describe('TrackDetails SubContainer tests', () => {
     expect(screen.getByText('Collection: Test Collection')).toBeInTheDocument();
     expect(screen.getByText('Genre: Pop')).toBeInTheDocument();
     expect(screen.getByText('Country: USA')).toBeInTheDocument();
+  });
+
+  it('should format release date correctly', () => {
+    renderComponent({ trackDetails: trackDetailsMock });
+    expect(screen.getByText('Release Date: October 20, 2022')).toBeInTheDocument();
+  });
+
+  it('should display price with currency', () => {
+    renderComponent({ trackDetails: trackDetailsMock });
+    expect(screen.getByText('Price: $1.29')).toBeInTheDocument();
+  });
+
+  it('should render preview button when previewUrl is available', () => {
+    renderComponent({ trackDetails: trackDetailsMock });
+    const previewButton = screen.getByText('Preview');
+    expect(previewButton).toBeInTheDocument();
+    expect(previewButton.closest('a')).toHaveAttribute('href', trackDetailsMock.previewUrl);
+  });
+
+  it('should not render preview button when previewUrl is not available', () => {
+    const trackDetailsWithoutPreview = { ...trackDetailsMock, previewUrl: null };
+    renderComponent({ trackDetails: trackDetailsWithoutPreview });
+    expect(screen.queryByText('Preview')).not.toBeInTheDocument();
   });
 });
