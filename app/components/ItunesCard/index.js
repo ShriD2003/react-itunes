@@ -19,6 +19,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
+import { colors } from '@app/themes';
 
 import { Card, Typography, Button, Progress, Spin } from 'antd';
 
@@ -38,6 +39,8 @@ const CustomCard = styled(Card)`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    background-color: ${colors.musicGridBg};
+    border: 1px solid #ffdbac;
   }
 `;
 
@@ -137,13 +140,15 @@ function ItunesCard({ song, trackDetails, onActionClick }) {
   };
 
   const truncateText = (text, wordLimit) => {
-    const words = text.split('');
-    if (words.length <= wordLimit) {
+    const words = text?.split('');
+    if (words?.length <= wordLimit) {
       return text;
     }
-    return `${words.slice(0, wordLimit).join('')}...`;
+    return `${words?.slice(0, wordLimit).join('')}...`;
   };
-  const truncatedTrackName = truncateText(trackName, 20);
+  const truncatedTrackName = truncateText(trackName, 18);
+  const truncatedLongDescription = truncateText(song.longDescription, 1);
+  const truncatedShortDescription = truncateText(song.shortDescription, 25);
 
   return (
     <CustomCard data-testid="song-card">
@@ -153,7 +158,7 @@ function ItunesCard({ song, trackDetails, onActionClick }) {
           <Typography.Title level={4}>{truncatedTrackName}</Typography.Title>
           <Typography.Text>{artistName}</Typography.Text>
         </StyledLink>
-        <Paragraph data-testid="para-test">{song.shortDescription || song.longDescription || ''}</Paragraph>
+        <Paragraph data-testid="para-test">{!truncatedShortDescription || !truncatedLongDescription || ''}</Paragraph>
       </CardContent>
       <div>
         <ButtonContainer>

@@ -185,7 +185,6 @@ export function ItunesContainer({
   return (
     <>
       <Container maxwidth={100} padding={padding} containerWidth={containerWidth}>
-        {/* <CustomCard title={intl.formatMessage({ id: 'songs_search' })} maxwidth={maxwidth}> */}
         <CustomCard maxwidth={maxwidth}>
           <T id="music_search_default" />
           <Search

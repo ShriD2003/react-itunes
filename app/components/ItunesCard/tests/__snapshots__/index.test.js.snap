@@ -4,7 +4,7 @@ exports[`<ItunesCard/> tests should render and match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="ant-card ant-card-bordered css-1x05kbi evxfas45 css-dev-only-do-not-override-1pg9a38"
+      class="ant-card ant-card-bordered css-zsbyvt evxfas45 css-dev-only-do-not-override-1pg9a38"
       data-testid="song-card"
     >
       <div
@@ -36,9 +36,7 @@ exports[`<ItunesCard/> tests should render and match the snapshot 1`] = `
           <div
             class="ant-typography css-dev-only-do-not-override-1pg9a38"
             data-testid="para-test"
-          >
-            Song Description
-          </div>
+          />
         </div>
         <div>
           <div

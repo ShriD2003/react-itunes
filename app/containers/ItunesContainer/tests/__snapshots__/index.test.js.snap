@@ -4,7 +4,7 @@ exports[`ItunesContainer tests should render and match the snapshot 1`] = `
 <body>
   <div>
     <div
-      class="sc-gJhJTp jBvYUX"
+      class="sc-gJhJTp cviPLA"
       maxwidth="100"
       padding="20"
     >
@@ -71,7 +71,7 @@ exports[`ItunesContainer tests should render and match the snapshot 1`] = `
       </div>
     </div>
     <div
-      class="sc-elDIKY XBIIX"
+      class="sc-elDIKY dyHnFc"
       maxwidth="500"
     >
       <div
