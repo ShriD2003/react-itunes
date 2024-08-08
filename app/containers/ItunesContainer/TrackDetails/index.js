@@ -100,7 +100,7 @@ export function TrackDetails({
                     condition={isEmpty(trackSearchError)}
                     otherwise={<T data-testid="track-detail-error" id="something_went_wrong" />}
                   >
-                    <Skeleton data-testid="skeleton-card" loading={isEmpty(trackDetails)} active>
+                    <Skeleton role="loading-spin" data-testid="skeleton-card" loading={isEmpty(trackDetails)} active>
                       <ItunesCard song={trackDetails} trackDetails width={width} height={height} padding={padding} />
                     </Skeleton>
                   </If>
