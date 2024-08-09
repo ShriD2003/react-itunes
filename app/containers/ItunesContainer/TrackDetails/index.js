@@ -93,9 +93,7 @@ export function TrackDetails({
             <BackLink to="/itunes">
               <LeftCircleTwoTone />
             </BackLink>
-            <button aria-label="Close" onClick={dispatchClearTrackDetails}>
-              Close
-            </button>
+
             <TrackInfoContainer>
               <TrackDetailsRow gutter={[16, 16]}>
                 <Col span={6}>
