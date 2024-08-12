@@ -52,7 +52,7 @@ jobs:
         with:
           args: --acl public-read --follow-symlinks --exclude 'tests/*'
         env:
-          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}-${{ env.ENV_NAME }}
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
           SOURCE_DIR: './build/'
 
       - name: Invalidate CloudFront
@@ -61,7 +61,6 @@ jobs:
         env:
           DISTRIBUTION: ${{ secrets.DISTRIBUTION_ID }}
           PATHS: '/*'
-
       - name: Create badges
         run: yarn run test:badges
       - name: Commit badges
